@@ -14,7 +14,6 @@ function App() {
         <Route path="/" element={<Login />} />
         <Route path="/agent" element={<Agent />} />
         <Route path="/responsable" element={<Respo/>} />
-        <Route path="/formearrive_respo" element={<Formarriveresop/>} />
         <Route path="/admin" element={<Admin/>} />
 
         
