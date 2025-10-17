@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState , useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import logo from './logo-chuu.png'
 import { title } from '../data';
@@ -13,7 +13,8 @@ import { useNavigate } from 'react-router-dom';
 const Admin = () => {
     const location = useLocation();
 
-    const [role, userid] = location.state?.infos || [];
+
+    const [role, userid , token] = location.state?.infos || [];
     const [currentPage, setCurrentPage] = useState(null);
 
 
@@ -26,7 +27,19 @@ const Admin = () => {
     const navigate = useNavigate();
 
 
-
+      
+            useEffect(() => {
+                if (localStorage.getItem("token") !== token || !localStorage.getItem("token")) {
+        
+                    navigate("/");
+                    console.log("Token invalide, redirection vers la page de connexion.");
+                }
+                else{
+                    console.log("Token valide, accès autorisé.");
+                }
+        
+        
+            }, []);
 
     const logout = async (e) => {
 

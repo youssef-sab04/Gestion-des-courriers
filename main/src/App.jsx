@@ -4,8 +4,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Login from './Login';
 import Respo from './responsable/responsable.jsx';
 import Agent from './agent/agent.jsx';
-import Formarriveresop from './agent/formararriverespo.jsx';
 import Admin from './admin/admin.jsx';
+import PageNotFound from './PageNotFound.jsx';
 function App() {
 
   return (
@@ -15,6 +15,8 @@ function App() {
         <Route path="/agent" element={<Agent />} />
         <Route path="/responsable" element={<Respo/>} />
         <Route path="/admin" element={<Admin/>} />
+        <Route path="*" element={<PageNotFound />} />
+
 
         
 

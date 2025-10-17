@@ -45,7 +45,8 @@ switch ($_SERVER['REQUEST_METHOD']) {
                     "success" => true,
                     "message" => "Connexion réussie",
                     "role" => $_SESSION['user_role'],
-                    "user_id" => $_SESSION['user_id']
+                    "user_id" => $_SESSION['user_id'],
+                    "token" => $_SESSION['token']
                 ]);
             } else {
                 http_response_code(401);

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import logo from './logo-chu.png'
 import { title } from '../data';
@@ -17,9 +17,9 @@ import avt2 from './def.png'
 
 const Agent = () => {
     const location = useLocation();
-
-    const [role, userid] = location.state?.infos || [];
+    const [role, userid , token ] = location.state?.infos || [];
     const [currentPage, setCurrentPage] = useState(null);
+    const [valid , setValid] = useState(false);
 
 
     const avatr = avatars.filter(element => element.id_user === userid);
@@ -35,8 +35,22 @@ const Agent = () => {
 
 
     const navigate = useNavigate();
+    console.log(token);
+
+    useEffect(() => {
+        if (localStorage.getItem("token") !== token || !localStorage.getItem("token")) {
+
+            navigate("/");
+            console.log("Token invalide, redirection vers la page de connexion.");
+            setValid(false);
+        }
+        else{
+            console.log("Token valide, accès autorisé.");
+            setValid(true);
+        }
 
 
+    }, []);
 
 
     const logout = async (e) => {
@@ -44,9 +58,7 @@ const Agent = () => {
         try {
             const response = await fetch('http://localhost/Essaie/api/controllers/AuthController.php', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
+
                 body: JSON.stringify({
                     action: 'logout'
                 }),
@@ -57,16 +69,18 @@ const Agent = () => {
             console.log("Réponse serveur : ", data);
 
             if (response.ok) {
-                // Naviguer seulement après confirmation du serveur
                 navigate("/");
+
+
+
             } else {
                 console.error("Erreur lors de la déconnexion");
             }
         } catch (error) {
             console.error("Erreur réseau : ", error);
-            // Même en cas d'erreur, rediriger vers la page de login
             navigate("/");
         }
+        
     }
     return (
         <div className="agent">
@@ -109,8 +123,8 @@ const Agent = () => {
                                     );
                                 }
                                 else if (val.id === 6) {
+                                    localStorage.removeItem('token');
                                     logout();
-
                                 }
 
                                 else {

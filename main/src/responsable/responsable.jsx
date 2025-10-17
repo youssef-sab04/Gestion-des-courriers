@@ -1,4 +1,4 @@
-import React , {useState} from 'react';
+import React , {useState , useEffect} from 'react';
 import { useLocation } from 'react-router-dom';
 import logo from './logo-chuu.png'
 import { title } from '../data';
@@ -17,7 +17,23 @@ const Responsable = () => {
         const navigate = useNavigate();
 
 
-    const [role, userid] = location.state?.infos || [];
+    const [role, userid , token] = location.state?.infos || [];
+    
+    
+        console.log(token);
+    
+        useEffect(() => {
+            if (localStorage.getItem("token") !== token || !localStorage.getItem("token")) {
+    
+                navigate("/");
+                console.log("Token invalide, redirection vers la page de connexion.");
+            }
+            else{
+                console.log("Token valide, accès autorisé.");
+            }
+    
+    
+        }, []);
 
     const avatr = avatars.filter(element => element.id_user === userid);
     const avatrimg = avatr[0]?.imagesrc;

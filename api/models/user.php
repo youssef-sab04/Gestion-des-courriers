@@ -50,8 +50,13 @@ class User
 
         if ($user ) {
             session_start();
+             $token = bin2hex(random_bytes(32)); // Token aléatoire
+             $expiration = time() + (24 * 60 * 60); // 24
             $_SESSION['user_id'] = $user['id_user'];
             $_SESSION['user_role'] = $user['type'];
+            $_SESSION['token'] = $token ;
+
+       
             return true;
         }
         
