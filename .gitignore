@@ -11,5 +11,8 @@
 *.sig
 
 pkg/
+node_modules/
+inscrireuser.php
+
 
 "inscrireuser.php" 
